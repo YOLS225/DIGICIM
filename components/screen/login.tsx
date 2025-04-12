@@ -20,7 +20,7 @@ export default function Login({ navigation: { navigate } }:any) {
     }
 
     const goHome=()=>{
-        navigate('Home');
+        navigate('Pin');
     }
 
     return (
@@ -62,7 +62,7 @@ export default function Login({ navigation: { navigate } }:any) {
                 <SimpleButton
                     buttonText={"Connexion"}
                     buttonColor="red"
-                    onPress={() => console.log('Connexion')}
+                    onPress={goHome}
                 />
 
                 <ThemedText style={{ marginTop: 15 }}>

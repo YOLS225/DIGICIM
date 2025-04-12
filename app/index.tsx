@@ -12,6 +12,8 @@ const Stack = createNativeStackNavigator();
 
 import { LogBox } from 'react-native';
 import PhonenumberVerify from "@/components/screen/phonenumber-verify";
+import PinCodeScreen from "@/components/screen/code-pin";
+import {BottomTab} from "@/components/widget/bottom-tabs/bottom-tab";
 
 LogBox.ignoreLogs([
     'Support for defaultProps will be removed',
@@ -25,7 +27,9 @@ export default function Index(){
                 <Stack.Screen name="Login" component={Login} options={{headerShown:false}} />
                 <Stack.Screen name="Register" component={Register} options={{headerShown:false}} />
                 <Stack.Screen name="Verify" component={PhonenumberVerify} options={{headerShown:false}} />
-                {/*<Stack.Screen name="PaymentMode" component={PaymentMode} options={{headerShown:false}} />*/}
+                <Stack.Screen name="Pin" component={PinCodeScreen} options={{headerShown:false}} />
+                <Stack.Screen name="Main" component={BottomTab} options={{headerShown:false}} />
+
             </Stack.Navigator>
 
     )

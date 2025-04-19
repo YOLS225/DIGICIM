@@ -2,39 +2,18 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {AntDesign, MaterialCommunityIcons} from "@expo/vector-icons";
+import {HeaderWithButton} from "@/components/widget/header/header-with-text";
+import SoldeTotal from "@/components/widget/cards/sold-card";
+import FloatingButton from "@/components/widget/buttons/floating-button";
+import {Home} from "@/components/widget/home/home";
+import {ContactUs} from "@/components/widget/contact-us/contact-us";
+import {Profil} from "@/components/widget/profil/profil";
 
 
-function Paye() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>En Developpement!</Text>
-        </View>
-    );
-}
 
-function Consulte() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>En Developpement!</Text>
-        </View>
-    );
-}
 
-function Historik() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>En Developpement!</Text>
-        </View>
-    );
-}
 
-function Statistik() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>En Developpement!</Text>
-        </View>
-    );
-}
+
 
 const Tab = createBottomTabNavigator();
 
@@ -42,39 +21,39 @@ export function BottomTab() {
     return (
         <Tab.Navigator
             screenOptions={{
-                tabBarActiveTintColor: "blue", // Couleur des icônes actives
+                tabBarActiveTintColor: "red", // Couleur des icônes actives
                 tabBarInactiveTintColor: "gray",
                 headerShown:false,
             }}
 
         >
             <Tab.Screen
-                name="Accueil"
-                component={Paye}
+                name="Home"
+                component={Home}
                 options={{
                     tabBarLabel: 'Accueil',
-                    tabBarIcon: () => (
-                        <AntDesign name="home" size={24} color="black" />
+                    tabBarIcon: ({size,color}) => (
+                        <AntDesign name="home" size={size} color={color} />
                     )
                 }}
             />
             <Tab.Screen
-                name="Payer"
-                component={Consulte}
+                name="Contact-us"
+                component={ContactUs}
                 options={{
                     tabBarLabel: 'Nous contacter',
-                    tabBarIcon: () => (
-                        <MaterialCommunityIcons name="phone-message" size={24} color="black" />
+                    tabBarIcon: ({size,color}) => (
+                        <MaterialCommunityIcons name="phone-message" size={size} color={color} />
                     ),
                 }}
             />
             <Tab.Screen
-                name="Historik"
-                component={Historik}
+                name="Profil"
+                component={Profil}
                 options={{
                     tabBarLabel: 'Profil',
-                    tabBarIcon: () => (
-                        <MaterialCommunityIcons name="account" size={24} color="black" />
+                    tabBarIcon: ({size,color}) => (
+                        <MaterialCommunityIcons name="account" size={size} color={color} />
                     ),
                 }}
             />

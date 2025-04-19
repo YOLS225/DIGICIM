@@ -1,6 +1,5 @@
 import { View, StyleSheet, Text } from "react-native";
 
-import { ThemedText } from "@/components/ThemedText";
 import {HeaderWithText} from "@/components/widget/header/header-with-text";
 import {EmailInput, Input} from "@/components/widget/input/simple-input";
 import {CountryDropdown} from "@/components/widget/input/contry-input";

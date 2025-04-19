@@ -1,8 +1,5 @@
-import {ThemedText} from "@/components/ThemedText";
 import { ImageBackground, StyleSheet, View, Text } from "react-native";
-import {Colors} from "@/constants/Colors";
 import FirstScreen from "@/components/screen/first-screen";
-import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import Login from "@/components/screen/login";
 import Register from "@/components/screen/register";
@@ -14,6 +11,8 @@ import { LogBox } from 'react-native';
 import PhonenumberVerify from "@/components/screen/phonenumber-verify";
 import PinCodeScreen from "@/components/screen/code-pin";
 import {BottomTab} from "@/components/widget/bottom-tabs/bottom-tab";
+import {ChooseMessage} from "@/components/screen/choose-message";
+import {SendMessage} from "@/components/screen/send-message";
 
 LogBox.ignoreLogs([
     'Support for defaultProps will be removed',
@@ -29,6 +28,8 @@ export default function Index(){
                 <Stack.Screen name="Verify" component={PhonenumberVerify} options={{headerShown:false}} />
                 <Stack.Screen name="Pin" component={PinCodeScreen} options={{headerShown:false}} />
                 <Stack.Screen name="Main" component={BottomTab} options={{headerShown:false}} />
+                <Stack.Screen name="Choose" component={ChooseMessage} options={{headerShown:false}} />
+                <Stack.Screen name="Send-message" component={SendMessage} options={{headerShown:false}} />
 
             </Stack.Navigator>
 

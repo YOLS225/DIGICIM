@@ -1,6 +1,5 @@
 import {Button} from "react-native-paper";
-import {StyleSheet, View} from "react-native";
-import {ThemedText} from "@/components/ThemedText";
+import {StyleSheet, View,Text} from "react-native";
 import React from "react";
 import {ButtonProps} from "@/components/widget/buttons/button-with-icons";
 
@@ -15,7 +14,7 @@ export default function SimpleButton({buttonText,buttonColor,onPress}:ButtonProp
             contentStyle={styles.buttonContent}
         >
             <View style={styles.buttonInner}>
-                <ThemedText style={styles.buttonText}>{buttonText}</ThemedText>
+                <Text style={styles.buttonText}>{buttonText}</Text>
             </View>
         </Button>
     )

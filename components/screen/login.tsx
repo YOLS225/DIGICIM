@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 
-import { ThemedText } from '@/components/ThemedText';
 import {HeaderWithText} from "@/components/widget/header/header-with-text";
 import {Input, PhoneInput, SecureInput} from "@/components/widget/input/simple-input";
 import {ButtonText} from "@/components/widget/buttons/button-link";
@@ -65,9 +64,9 @@ export default function Login({ navigation: { navigate } }:any) {
                     onPress={goHome}
                 />
 
-                <ThemedText style={{ marginTop: 15 }}>
+                <Text style={{ marginTop: 15,fontWeight:"bold",fontSize:17,textAlign:"center" }}>
                     Première connexion à l'application ?
-                </ThemedText>
+                </Text>
 
                 <ButtonText
                     buttonText={"Ouvrir mon compte"}

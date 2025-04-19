@@ -101,10 +101,11 @@ const styles = StyleSheet.create({
         width: 70,
         height: 70,
         borderRadius: 35,
-        backgroundColor: '#eee',
+        backgroundColor: 'lightgray',
         justifyContent: 'center',
         alignItems: 'center',
         marginHorizontal: 10,
+        alignContent:"space-between"
     },
     delKey: { backgroundColor: '#fdd' },
     keyText: { fontSize: 24, fontWeight: 'bold' },

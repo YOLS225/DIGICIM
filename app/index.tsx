@@ -13,6 +13,7 @@ import PinCodeScreen from "@/components/screen/code-pin";
 import {BottomTab} from "@/components/widget/bottom-tabs/bottom-tab";
 import {ChooseMessage} from "@/components/screen/choose-message";
 import {SendMessage} from "@/components/screen/send-message";
+import Rechargement from "@/components/screen/rechargement";
 
 LogBox.ignoreLogs([
     'Support for defaultProps will be removed',
@@ -30,17 +31,9 @@ export default function Index(){
                 <Stack.Screen name="Main" component={BottomTab} options={{headerShown:false}} />
                 <Stack.Screen name="Choose" component={ChooseMessage} options={{headerShown:false}} />
                 <Stack.Screen name="Send-message" component={SendMessage} options={{headerShown:false}} />
+                <Stack.Screen name="Rechargement" component={Rechargement} options={{headerShown:false}} />
 
             </Stack.Navigator>
 
     )
 }
-
-
-
-
-const styles=StyleSheet.create({
-    body:{
-        flex:1
-    }
-})

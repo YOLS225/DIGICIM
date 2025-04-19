@@ -1,5 +1,5 @@
 import { Card, Title } from "react-native-paper";
-import { View, StyleSheet, Dimensions } from "react-native";
+import {View, StyleSheet, Dimensions, Pressable} from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 interface OperationCardProps {
@@ -11,16 +11,19 @@ interface OperationCardProps {
 
 const OperationCard = ({ icon, title, onPress, style }: OperationCardProps) => {
     return (
-        <Card style={[cardStyles.card, style]} onPress={onPress}>
-            <Card.Content style={cardStyles.content}>
-                {icon}
-                <Title style={cardStyles.title}>{title}</Title>
-            </Card.Content>
-        </Card>
+        <Pressable onPress={onPress}>
+            <Card style={[cardStyles.card, style]}>
+                <Card.Content style={cardStyles.content}>
+                    {icon}
+                    <Title style={cardStyles.title}>{title}</Title>
+                </Card.Content>
+            </Card>
+        </Pressable>
+
     );
 };
 
-const OperationsGrid = () => {
+const OperationsGrid = ({ navigation: { navigate } }: any) => {
     const screenWidth = Dimensions.get('window').width;
     const cardWidth = (screenWidth) / 2.5; // 20 padding horizontal total + 20 espace entre cartes
 
@@ -31,12 +34,14 @@ const OperationsGrid = () => {
                     icon={<FontAwesome5 name="dollar-sign" size={24} color="black" />}
                     title={"Se recharger"}
                     style={[styles.card, { width: cardWidth }]}
+                    onPress={()=>navigate('Rechargement')}
                 />
                 <View style={styles.cardSpacer} />
                 <OperationCard
                     icon={<FontAwesome5 name="shopping-cart" size={24} color="black" />}
                     title={"Acheter du ciment"}
                     style={[styles.card, { width: cardWidth }]}
+                    onPress={()=>navigate('Profil')}
                 />
             </View>
 
@@ -45,12 +50,14 @@ const OperationsGrid = () => {
                     icon={<FontAwesome5 name="phone-volume" size={24} color="black" />}
                     title={"Nos offres"}
                     style={[styles.card, { width: cardWidth }]}
+                    onPress={()=>navigate('Profil')}
                 />
                 <View style={styles.cardSpacer} />
                 <OperationCard
                     icon={<FontAwesome5 name="file-invoice" size={24} color="black" />}
                     title={"Mes commandes"}
                     style={[styles.card, { width: cardWidth }]}
+                    onPress={()=>navigate('Profil')}
                 />
             </View>
         </View>

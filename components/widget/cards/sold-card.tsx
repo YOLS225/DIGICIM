@@ -5,7 +5,7 @@ import { Entypo } from "@expo/vector-icons";
 import TransactionCard from "@/components/widget/cards/transaction-card";
 import OperationsGrid from "@/components/widget/cards/operation-card";
 
-const SoldeTotal = () => {
+const SoldeTotal = ({ navigation }: any) => {
     const [isVisible, setIsVisible] = useState(false);
     const screenHeight = Dimensions.get('window').height;
 
@@ -56,7 +56,7 @@ const SoldeTotal = () => {
             {/* Section Opérations */}
             <View style={styles.operationsContainer}>
                 <Text style={styles.sectionTitle}>Opérations</Text>
-                <OperationsGrid />
+                <OperationsGrid navigation={navigation} />
             </View>
 
             {/* Espace supplémentaire pour le défilement */}

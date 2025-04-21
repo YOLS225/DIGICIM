@@ -8,6 +8,8 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import {PaperProvider} from "react-native-paper";
+import {ToastProvider} from "react-native-toast-notifications";
+import FlashMessage from "react-native-flash-message";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -31,9 +33,10 @@ export default function RootLayout() {
   return (
       <PaperProvider>
         <ThemeProvider value={colorScheme === 'light' ? DarkTheme : DefaultTheme}>
-          <Stack>
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-          </Stack>
+            <Stack>
+              <Stack.Screen name="index" options={{ headerShown: false }} />
+            </Stack>
+          <FlashMessage position="top" />
           <StatusBar style="auto" />
         </ThemeProvider>
       </PaperProvider>

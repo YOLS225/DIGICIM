@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 
@@ -8,8 +8,10 @@ import {ButtonText} from "@/components/widget/buttons/button-link";
 import SimpleButton from "@/components/widget/buttons/simple-button";
 import {goBack} from "expo-router/build/global-state/routing";
 import {PhoneInputWithCountry} from "@/components/widget/input/phone-input";
+import {user} from "@/components/objects/all-data";
 
 export default function Login({ navigation: { navigate } }:any) {
+    const userInfo= user
     const goBack=()=>{
         navigate('FirstScreen');
     }
@@ -21,7 +23,9 @@ export default function Login({ navigation: { navigate } }:any) {
     const goHome=()=>{
         navigate('Pin');
     }
+    useEffect(() => {
 
+    }, [userInfo]);
     return (
         <>
             <View>

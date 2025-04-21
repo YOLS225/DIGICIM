@@ -4,7 +4,7 @@ import React from "react";
 import {ButtonProps} from "@/components/widget/buttons/button-with-icons";
 
 
-export default function SimpleButton({buttonText,buttonColor,onPress}:ButtonProps){
+export default function SimpleButton({buttonText,buttonColor,inactive,onPress}:ButtonProps){
     return(
         <Button
             style={styles.button}
@@ -12,6 +12,7 @@ export default function SimpleButton({buttonText,buttonColor,onPress}:ButtonProp
             buttonColor={buttonColor}
             onPress={onPress}
             contentStyle={styles.buttonContent}
+            disabled={inactive}
         >
             <View style={styles.buttonInner}>
                 <Text style={styles.buttonText}>{buttonText}</Text>

@@ -8,6 +8,7 @@ export interface ButtonProps{
     buttonColor?: string;
     icon?: React.ReactNode;
     onPress?: () => void;
+    inactive?: boolean;
 }
 
 export default function ButtonWithIcon({buttonText,buttonColor,icon,onPress}:ButtonProps){

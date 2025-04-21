@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { Card} from 'react-native-paper';
 import { Dimensions, Image, StyleSheet, View,Text } from 'react-native';
 import {AntDesign} from "@expo/vector-icons";
+
 import ButtonWithIcon from "@/components/widget/buttons/button-with-icons";
 import SimpleButton from "@/components/widget/buttons/simple-button";
 

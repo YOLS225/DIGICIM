@@ -41,3 +41,14 @@ export function SimpleHeader({ title,onPress }: HeaderProps) {
         </Appbar.Header>
     )
 }
+
+
+export function SimpleHeaderWithoutBorder({ title,onPress }: HeaderProps) {
+    return (
+        <Appbar.Header style={{ backgroundColor: 'white'}}>
+            <Appbar.BackAction  color={"black"} onPress={onPress} />
+            <Appbar.Content titleStyle={{color:"black",}} title={title ?? ""} />
+
+        </Appbar.Header>
+    )
+}

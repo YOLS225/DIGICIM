@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import { CodeField, useClearByFocusCell } from 'react-native-confirmation-code-field';
+import {user} from "@/components/objects/all-data";
 
 const CELL_COUNT = 4;
 
 export default function PinCodeScreen({ navigation: { navigate } }: any) {
+
+    const userInfo=user
     const [value, setValue] = useState('');
     const [props, getCellOnLayoutHandler] = useClearByFocusCell({ value, setValue });
 
@@ -19,7 +22,7 @@ export default function PinCodeScreen({ navigation: { navigate } }: any) {
 
     useEffect(() => {
         if (value.length === CELL_COUNT) {
-            if (value === '1234') {
+            if (value === userInfo?.password) {
                 Alert.alert('Succès', 'Code correct ! 🎉');
                 navigate("Main")
             } else {
@@ -27,7 +30,7 @@ export default function PinCodeScreen({ navigation: { navigate } }: any) {
                 setValue('');
             }
         }
-    }, [value]);
+    }, [value,userInfo]);
 
     const keys = [
         ['1', '2', '3'],
@@ -38,9 +41,9 @@ export default function PinCodeScreen({ navigation: { navigate } }: any) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Bienvenue Yoann !</Text>
+            <Text style={styles.title}>Bienvenue {userInfo?.firstname} !</Text>
             <Text style={styles.subtitle}>Entrez un nouveau code secret</Text>
-            <Text style={styles.subtitle}>validation (1234)</Text>
+            <Text style={styles.subtitle}>validation ({userInfo?.password})</Text>
 
             <CodeField
                 {...props}

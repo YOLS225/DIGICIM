@@ -21,7 +21,6 @@ LogBox.ignoreLogs([
 
 export default function Index(){
     return (
-
             <Stack.Navigator initialRouteName="FirstScreen">
                 <Stack.Screen name="FirstScreen" component={FirstScreen} options={{headerShown:false}} />
                 <Stack.Screen name="Login" component={Login} options={{headerShown:false}} />

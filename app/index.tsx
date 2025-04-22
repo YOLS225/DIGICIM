@@ -14,6 +14,8 @@ import {BottomTab} from "@/components/widget/bottom-tabs/bottom-tab";
 import {ChooseMessage} from "@/components/screen/choose-message";
 import {SendMessage} from "@/components/screen/send-message";
 import Rechargement from "@/components/screen/rechargement";
+import {ChooseFactory} from "@/components/screen/factories";
+import ChooseCement from "@/components/screen/choose-cement";
 
 LogBox.ignoreLogs([
     'Support for defaultProps will be removed',
@@ -31,6 +33,9 @@ export default function Index(){
                 <Stack.Screen name="Choose" component={ChooseMessage} options={{headerShown:false}} />
                 <Stack.Screen name="Send-message" component={SendMessage} options={{headerShown:false}} />
                 <Stack.Screen name="Rechargement" component={Rechargement} options={{headerShown:false}} />
+                <Stack.Screen name="Factories" component={ChooseFactory} options={{headerShown:false}} />
+                <Stack.Screen name="Cement" component={ChooseCement} options={{headerShown:false}} />
+
 
             </Stack.Navigator>
 

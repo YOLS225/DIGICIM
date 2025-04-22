@@ -44,7 +44,7 @@ export default function PhonenumberVerify({ navigation: { navigate } }: any) {
                             <SimpleButton
                                 buttonText="Valider le code"
                                 buttonColor="red"
-                                onPress={() => console.log("valider le code")}
+                                onPress={() => navigate("Login")}
                             />
                         </View>
                     </View>

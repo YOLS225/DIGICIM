@@ -41,7 +41,7 @@ const OperationsGrid = ({ navigation: { navigate } }: any) => {
                     icon={<FontAwesome5 name="shopping-cart" size={24} color="black" />}
                     title={"Acheter du ciment"}
                     style={[styles.card, { width: cardWidth }]}
-                    onPress={()=>navigate('Profil')}
+                    onPress={()=>navigate('Factories')}
                 />
             </View>
 

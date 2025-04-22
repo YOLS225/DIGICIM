@@ -8,7 +8,7 @@ import {ButtonText} from "@/components/widget/buttons/button-link";
 import SimpleButton from "@/components/widget/buttons/simple-button";
 import {goBack} from "expo-router/build/global-state/routing";
 import {PhoneInputWithCountry} from "@/components/widget/input/phone-input";
-import {user} from "@/components/objects/all-data";
+import {user} from "@/components/objects/all-data_db";
 
 export default function Login({ navigation: { navigate } }:any) {
     const userInfo= user
@@ -40,12 +40,14 @@ export default function Login({ navigation: { navigate } }:any) {
                     Entrez vos identifiants pour vous connecter
                 </Text>
 
-                <PhoneInputWithCountry
-                    label="N° de téléphone"
-                    color="white"
-                    textColor="black"
-                    placeholder="ex: 0707070707"
-                />
+                <View>
+                    <PhoneInputWithCountry
+                        label="N° de téléphone"
+                        color="white"
+                        textColor="black"
+                        placeholder="ex: 0707070707"
+                    />
+                </View>
 
                 <View>
                     <SecureInput

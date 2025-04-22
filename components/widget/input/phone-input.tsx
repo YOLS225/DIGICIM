@@ -4,26 +4,27 @@ import PhoneInput from 'react-native-phone-number-input';
 
 type PhoneInputProps = {
     label: string;
-    color: string;       // backgroundColor
+    color: string; // backgroundColor
+    value?: string;
     textColor: string;   // couleur du texte
     placeholder: string;
+    onChange?: (value: string) => void;
 };
 
-export const PhoneInputWithCountry = ({ label, color, textColor, placeholder }: PhoneInputProps) => {
+export const PhoneInputWithCountry = ({ label, color, textColor, placeholder,value,onChange }: PhoneInputProps) => {
     const phoneInputRef = useRef<PhoneInput>(null);
-    const [value, setValue] = useState('');
-    const [formattedValue, setFormattedValue] = useState('');
+
 
     return (
         <View style={styles.wrapper}>
             <Text style={[styles.label, { color: textColor }]}>{label}</Text>
             <PhoneInput
                 ref={phoneInputRef}
-                defaultValue={value}
+                value={value}
                 defaultCode="CI"
                 layout="first"
-                onChangeText={text => setValue(text)}
-                onChangeFormattedText={text => setFormattedValue(text)}
+                onChangeText={onChange}
+                // onChangeFormattedText={text => setFormattedValue(text)}
                 containerStyle={[styles.phoneContainer, { backgroundColor: color, borderColor: 'gray' }]}
                 textContainerStyle={[styles.textInput, { backgroundColor: color }]}
                 textInputStyle={[styles.textInputStyle, { color: textColor }]}

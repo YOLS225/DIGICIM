@@ -8,7 +8,7 @@ import {ButtonText} from "@/components/widget/buttons/button-link";
 import SimpleButton from "@/components/widget/buttons/simple-button";
 import {goBack} from "expo-router/build/global-state/routing";
 import {PhoneInputWithCountry} from "@/components/widget/input/phone-input";
-import {user} from "@/components/objects/all-data";
+import {user} from "@/components/objects/all-data_db";
 
 export default function Login({ navigation: { navigate } }:any) {
     const userInfo= user

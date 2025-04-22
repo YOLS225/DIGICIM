@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import { CodeField, useClearByFocusCell } from 'react-native-confirmation-code-field';
-import {user} from "@/components/objects/all-data";
+import {user} from "@/components/objects/all-data_db";
 
 const CELL_COUNT = 4;
 
@@ -22,7 +22,7 @@ export default function PinCodeScreen({ navigation: { navigate } }: any) {
 
     useEffect(() => {
         if (value.length === CELL_COUNT) {
-            if (value === userInfo?.password) {
+            if (value === userInfo?.pinCode) {
                 Alert.alert('Succès', 'Code correct ! 🎉');
                 navigate("Main")
             } else {
@@ -41,9 +41,9 @@ export default function PinCodeScreen({ navigation: { navigate } }: any) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Bienvenue {userInfo?.firstname} !</Text>
+            <Text style={styles.title}>Bienvenue {userInfo?.firstName} !</Text>
             <Text style={styles.subtitle}>Entrez un nouveau code secret</Text>
-            <Text style={styles.subtitle}>validation ({userInfo?.password})</Text>
+            <Text style={styles.subtitle}>validation ({userInfo?.pinCode})</Text>
 
             <CodeField
                 {...props}

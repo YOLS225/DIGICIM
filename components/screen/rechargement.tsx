@@ -5,7 +5,7 @@ import {
     Text,
     KeyboardAvoidingView,
     Platform,
-    ScrollView
+    ScrollView, TouchableWithoutFeedback, Keyboard
 } from "react-native";
 import {SimpleHeaderWithoutBorder} from "@/components/widget/header/header-with-text";
 import AmountInput from "@/components/widget/input/amount-input";
@@ -50,7 +50,6 @@ export default function Rechargement({ navigation: { navigate } }: any) {
 
     const handleConfirm = () => {
         setDialogVisible(true);
-
     };
 
     const handleDismiss = () => {
@@ -64,55 +63,54 @@ export default function Rechargement({ navigation: { navigate } }: any) {
         setTimeout(() => {
             randomResult();
             setLoading(false);
-
         }, 1000);
     };
-
-
-
 
     return (
         <KeyboardAvoidingView
             style={{ flex: 1 }}
-            behavior={Platform.OS === "ios" ? "padding" : undefined}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
         >
-            <ScrollView
-                contentContainerStyle={styles.scroll}
-                keyboardShouldPersistTaps="handled"
-            >
-                <SimpleHeaderWithoutBorder title={"Se recharger"} onPress={goBack} />
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <ScrollView
+                    contentContainerStyle={styles.scroll}
+                    keyboardShouldPersistTaps="handled"
+                >
+                    <SimpleHeaderWithoutBorder title={"Se recharger"} onPress={goBack} />
 
-                <View style={styles.container}>
-                    <Text style={styles.title}>Numéro à débiter</Text>
-                    <Text style={styles.subtitle}>2250700757873</Text>
+                    <View style={styles.container}>
+                        <Text style={styles.title}>Numéro à débiter</Text>
+                        <Text style={styles.subtitle}>2250700757873</Text>
 
-                    <AmountInput
-                        value={amount}
-                        onChangeText={handleAmountChange}
-                        currency="FCFA"
-                    />
-                </View>
-
-                <View style={styles.footer}>
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Montant à recevoir</Text>
-                        <Text style={styles.amount}>{amount || '0'} FCFA</Text>
+                        <AmountInput
+                            value={amount}
+                            onChangeText={handleAmountChange}
+                            currency="FCFA"
+                        />
                     </View>
-                    <SimpleButton
-                        buttonText="Confirmer"
-                        buttonColor="red"
-                        inactive={!amount}
-                        onPress={handleConfirm}
-                    />
-                    <RechargementDialog
-                        amount={amount}
-                        phoneNumber={"0700757873"}
-                        visible={dialogVisible}
-                        onValid={handleValidation}
-                        onDismiss={handleDismiss}
-                    />
-                </View>
-            </ScrollView>
+
+                    <View style={styles.footer}>
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Montant à recevoir</Text>
+                            <Text style={styles.amount}>{amount || '0'} FCFA</Text>
+                        </View>
+                        <SimpleButton
+                            buttonText="Confirmer"
+                            buttonColor="red"
+                            inactive={!amount}
+                            onPress={handleConfirm}
+                        />
+                        <RechargementDialog
+                            amount={amount}
+                            phoneNumber={"0700757873"}
+                            visible={dialogVisible}
+                            onValid={handleValidation}
+                            onDismiss={handleDismiss}
+                        />
+                    </View>
+                </ScrollView>
+            </TouchableWithoutFeedback>
             {loading && (
                 <View style={styles.spinnerContainer}>
                     <ActivityIndicator size="large" color="red" />
@@ -121,7 +119,6 @@ export default function Rechargement({ navigation: { navigate } }: any) {
         </KeyboardAvoidingView>
     );
 }
-
 const styles = StyleSheet.create({
     scroll: {
         flexGrow: 1,

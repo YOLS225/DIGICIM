@@ -173,7 +173,7 @@ export default function Register({ navigation: { navigate } }: any) {
                 <SimpleButton
                     buttonText="Continuer"
                     buttonColor="red"
-                    onPress={goVerify}
+                    onPress={validForm}
                 />
 
             </View>

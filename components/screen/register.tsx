@@ -62,7 +62,7 @@ export default function Register({ navigation: { navigate } }: any) {
     }
 
 
-    const goBack = () => navigate('Login');
+    const goBack = () => navigate('FirstScreen');
     const goVerify = () => {
         navigate('Verify');
     }
@@ -173,7 +173,7 @@ export default function Register({ navigation: { navigate } }: any) {
                 <SimpleButton
                     buttonText="Continuer"
                     buttonColor="red"
-                    onPress={validForm}
+                    onPress={()=>navigate('Verify')}
                 />
 
             </View>

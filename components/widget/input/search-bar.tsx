@@ -12,6 +12,7 @@ const SimpleSearchBar = ({placeholder,onSearchBarChange,value}:Props) => {
     return (
         <Searchbar
             mode={"view"}
+            style={{backgroundColor:'white',borderColor:'black'}}
             placeholder={placeholder}
             onChangeText={onSearchBarChange}
             value={value ?? ""}

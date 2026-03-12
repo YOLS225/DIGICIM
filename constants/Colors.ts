@@ -1,26 +1,29 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
-
 export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
+  primary: '#C8102E',
+  primaryDark: '#A00020',
+  primaryLight: '#FFE5EA',
+
+  dark: '#0D1B2A',
+  darkCard: '#1B2A41',
+  darkMuted: '#2E4057',
+
+  background: '#F5F5F7',
+  surface: '#FFFFFF',
+
+  textPrimary: '#0D1B2A',
+  textSecondary: '#637082',
+  textMuted: '#9AA5B4',
+  textWhite: '#FFFFFF',
+
+  border: '#E4E8EF',
+  divider: '#F0F2F5',
+
+  success: '#00B07D',
+  successLight: '#E6F9F4',
+  warning: '#F59E0B',
+  warningLight: '#FEF3C7',
+  error: '#EF4444',
+  errorLight: '#FEE2E2',
+
+  shadow: 'rgba(13, 27, 42, 0.1)',
 };

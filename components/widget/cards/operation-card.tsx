@@ -1,110 +1,78 @@
-import { Card, Title } from "react-native-paper";
-import {View, StyleSheet, Dimensions, Pressable} from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Colors } from '@/constants/Colors';
 
-interface OperationCardProps {
-    icon?: React.ReactNode;
-    title?: string;
-    onPress?: () => void;
-    style?: any;
+interface OperationItem {
+  icon: string;
+  label: string;
+  color: string;
+  bg: string;
+  route: string;
 }
 
-const OperationCard = ({ icon, title, onPress, style }: OperationCardProps) => {
-    return (
-        <Pressable onPress={onPress}>
-            <Card style={[cardStyles.card, style]}>
-                <Card.Content style={cardStyles.content}>
-                    {icon}
-                    <Title style={cardStyles.title}>{title}</Title>
-                </Card.Content>
-            </Card>
-        </Pressable>
+const operations: OperationItem[] = [
+  { icon: 'add-circle', label: 'Se recharger', color: Colors.success, bg: Colors.successLight, route: 'Rechargement' },
+  { icon: 'cube', label: 'Acheter ciment', color: Colors.primary, bg: Colors.primaryLight, route: 'Factories' },
+  { icon: 'pricetag', label: 'Nos offres', color: '#F59E0B', bg: '#FEF3C7', route: 'Offers' },
+  { icon: 'receipt', label: 'Mes commandes', color: '#8B5CF6', bg: '#EDE9FE', route: 'Orders' },
+];
 
-    );
+const OperationsGrid = ({ navigation }: any) => {
+  const { navigate } = navigation;
+  const cardWidth = (Dimensions.get('window').width - 40 - 12) / 2;
+
+  return (
+    <View style={styles.grid}>
+      {operations.map((op, i) => (
+        <TouchableOpacity
+          key={i}
+          style={[styles.card, { width: cardWidth }]}
+          onPress={() => navigate(op.route)}
+          activeOpacity={0.8}
+        >
+          <View style={[styles.iconWrap, { backgroundColor: op.bg }]}>
+            <Ionicons name={op.icon as any} size={24} color={op.color} />
+          </View>
+          <Text style={styles.label}>{op.label}</Text>
+          <Ionicons name="arrow-forward" size={14} color={Colors.textMuted} style={{ marginTop: 4 }} />
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
 };
 
-const OperationsGrid = ({ navigation: { navigate } }: any) => {
-    const screenWidth = Dimensions.get('window').width;
-    const cardWidth = (screenWidth) / 2.5; // 20 padding horizontal total + 20 espace entre cartes
-
-    return (
-        <View style={styles.gridContainer}>
-            <View style={styles.row}>
-                <OperationCard
-                    icon={<FontAwesome5 name="dollar-sign" size={24} color="black" />}
-                    title={"Se recharger"}
-                    style={[styles.card, { width: cardWidth }]}
-                    onPress={()=>navigate('Rechargement')}
-                />
-                <View style={styles.cardSpacer} />
-                <OperationCard
-                    icon={<FontAwesome5 name="shopping-cart" size={24} color="black" />}
-                    title={"Acheter du ciment"}
-                    style={[styles.card, { width: cardWidth }]}
-                    onPress={()=>navigate('Factories')}
-                />
-            </View>
-
-            <View style={styles.row}>
-                <OperationCard
-                    icon={<FontAwesome5 name="phone-volume" size={24} color="black" />}
-                    title={"Nos offres"}
-                    style={[styles.card, { width: cardWidth }]}
-                    onPress={()=>navigate('Profil')}
-                />
-                <View style={styles.cardSpacer} />
-                <OperationCard
-                    icon={<FontAwesome5 name="file-invoice" size={24} color="black" />}
-                    title={"Mes commandes"}
-                    style={[styles.card, { width: cardWidth }]}
-                    onPress={()=>navigate('Profil')}
-                />
-            </View>
-        </View>
-    );
-};
+export { OperationsGrid as OperationCard };
+export default OperationsGrid;
 
 const styles = StyleSheet.create({
-    gridContainer: {
-        paddingHorizontal: 10,
-        // paddingVertical: 10,
-        // right:12
-    },
-    row: {
-        flexDirection: 'row',
-        marginBottom: 15, // Espace entre les lignes si nécessaire
-    },
-    card: {
-        height: 120,
-        borderRadius: 8,
-        elevation: 2,
-        backgroundColor: 'white',
-    },
-    cardSpacer: {
-        width: 10, // Espacement horizontal entre les cartes
-    },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  card: {
+    backgroundColor: Colors.surface,
+    borderRadius: 20,
+    padding: 18,
+    shadowColor: Colors.shadow,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.7,
+    shadowRadius: 8,
+    elevation: 3,
+  },
+  iconWrap: {
+    width: 48,
+    height: 48,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 14,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: Colors.textPrimary,
+    lineHeight: 20,
+  },
 });
-
-const cardStyles = StyleSheet.create({
-    card: {
-        borderRadius: 8,
-        elevation: 2,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    content: {
-        alignItems: 'center',
-        padding: 16,
-    },
-    title: {
-        fontSize: 16,
-        fontWeight: '600',
-        color: 'black',
-        textAlign: 'center',
-        marginTop: 8,
-    },
-});
-
-export { OperationCard };
-export default OperationsGrid;

@@ -1,73 +1,98 @@
+import React, { useState } from 'react';
 import {
-    Alert,
-    Keyboard,
-    KeyboardAvoidingView,
-    Platform,
-    StyleSheet,
-    Text,
-    TouchableWithoutFeedback,
-    View
+  View, Text, StyleSheet, KeyboardAvoidingView, Platform,
+  TouchableOpacity, StatusBar, TouchableWithoutFeedback, Keyboard,
 } from 'react-native';
-import {HeaderWithText} from "@/components/widget/header/header-with-text";
-import OtpInput from "@/components/widget/input/otp-input";
-import SimpleButton from "@/components/widget/buttons/simple-button";
-
+import { Ionicons } from '@expo/vector-icons';
+import { Colors } from '@/constants/Colors';
+import OtpInput from '@/components/widget/input/otp-input';
+import SimpleButton from '@/components/widget/buttons/simple-button';
 
 export default function PhonenumberVerify({ navigation: { navigate } }: any) {
-    const goBack = () => navigate('FirstScreen');
-    const handleCodeFilled = (code: string) => {
-        Alert.alert('Code saisi', code);
-        // Appelle ton API ici
-    };
+  const [code, setCode] = useState('');
+  const [resendTimer, setResendTimer] = useState(30);
 
-    return (
-        <KeyboardAvoidingView
-            style={{ flex: 1 }}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        >
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={{ flex: 1 }}>
-                    <HeaderWithText backButton={goBack} />
+  const handleCodeFilled = (c: string) => setCode(c);
 
-                    <View style={styles.body}>
-                        <View style={{ flex: 1 }}>
-                            <Text style={styles.title}>Vérification du numéro</Text>
-                            <Text style={styles.title}>de téléphone</Text>
-                            <Text style={styles.subtitle}>
-                                Veuillez saisir le code qui vous a été envoyé
-                            </Text>
+  return (
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <StatusBar barStyle="dark-content" />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          {/* Back */}
+          <TouchableOpacity style={styles.backBtn} onPress={() => navigate('Register')} activeOpacity={0.7}>
+            <Ionicons name="arrow-back" size={22} color={Colors.textPrimary} />
+          </TouchableOpacity>
 
-                            <OtpInput codeLength={6} onCodeFilled={handleCodeFilled} />
-                        </View>
+          {/* Content */}
+          <View style={styles.content}>
+            <View style={styles.iconBadge}>
+              <Ionicons name="phone-portrait" size={26} color={Colors.primary} />
+            </View>
+            <Text style={styles.title}>Vérification</Text>
+            <Text style={styles.subtitle}>
+              Un code à 6 chiffres a été envoyé au{'\n'}
+              <Text style={{ fontWeight: '700', color: Colors.textPrimary }}>+225 07 XX XX XX XX</Text>
+            </Text>
 
-                        <View style={{ marginTop: 'auto' }}>
-                            <SimpleButton
-                                buttonText="Valider le code"
-                                buttonColor="red"
-                                onPress={() => navigate("Login")}
-                            />
-                        </View>
-                    </View>
-                </View>
-            </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
-    );
+            {/* OTP Input */}
+            <View style={styles.otpContainer}>
+              <OtpInput codeLength={6} onCodeFilled={handleCodeFilled} />
+            </View>
+
+            {/* Resend */}
+            <View style={styles.resendRow}>
+              <Text style={styles.resendText}>Vous n'avez pas reçu le code ?</Text>
+              <TouchableOpacity activeOpacity={0.7}>
+                <Text style={styles.resendLink}> Renvoyer</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          {/* CTA */}
+          <View style={styles.footer}>
+            <SimpleButton
+              buttonText="Valider le code"
+              buttonColor={Colors.primary}
+              inactive={code.length < 6}
+              onPress={() => navigate('Login')}
+            />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+  );
 }
 
 const styles = StyleSheet.create({
-    body: {
-        flex: 1,
-        padding: 20,
-    },
-    title: {
-        fontSize: 26,
-        fontWeight: 'bold',
-        paddingBottom: 2,
-        textAlign: "center",
-    },
-    subtitle: {
-        fontSize: 14,
-        marginVertical: 10,
-        textAlign: "center",
-    }
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background,
+    paddingHorizontal: 24,
+    paddingTop: 60,
+    paddingBottom: 32,
+  },
+  backBtn: {
+    width: 42, height: 42, borderRadius: 12,
+    backgroundColor: Colors.surface, alignItems: 'center', justifyContent: 'center',
+    marginBottom: 40,
+    shadowColor: Colors.shadow, shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.6, shadowRadius: 4, elevation: 2,
+  },
+  content: { flex: 1 },
+  iconBadge: {
+    width: 64, height: 64, borderRadius: 20,
+    backgroundColor: Colors.primaryLight, alignItems: 'center', justifyContent: 'center', marginBottom: 24,
+  },
+  title: {
+    fontSize: 30, fontWeight: '800', color: Colors.textPrimary,
+    marginBottom: 12, letterSpacing: -0.5,
+  },
+  subtitle: {
+    fontSize: 14, color: Colors.textSecondary, lineHeight: 22, marginBottom: 40,
+  },
+  otpContainer: { marginBottom: 24 },
+  resendRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 8 },
+  resendText: { fontSize: 13, color: Colors.textSecondary },
+  resendLink: { fontSize: 13, color: Colors.primary, fontWeight: '700' },
+  footer: { paddingTop: 16 },
 });

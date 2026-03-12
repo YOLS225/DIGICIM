@@ -1,71 +1,114 @@
-import {SimpleHeader} from "@/components/widget/header/header-with-text";
-import {StyleSheet, Text, View} from "react-native";
-import {AntDesign} from "@expo/vector-icons";
-import * as React from "react";
-import {CardMessage} from "@/components/widget/cards/message-card";
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Colors } from '@/constants/Colors';
+import { SimpleHeader } from '@/components/widget/header/header-with-text';
+
+const MESSAGE_TYPES = [
+  {
+    key: 'ACHAT',
+    label: 'Achat de ciment',
+    description: 'Une question ou un problème concernant votre achat de ciment',
+    icon: 'cube' as const,
+    color: Colors.primary,
+    bg: Colors.primaryLight,
+    route: 'Send-message',
+  },
+  {
+    key: 'RECHARGEMENT',
+    label: 'Rechargement',
+    description: 'Un problème ou une demande liée au rechargement de votre compte',
+    icon: 'add-circle' as const,
+    color: Colors.success,
+    bg: Colors.successLight,
+    route: 'Send-message',
+  },
+  {
+    key: 'QUESTION',
+    label: 'Question générale',
+    description: 'Toute autre question relative à nos services ou produits',
+    icon: 'help-circle' as const,
+    color: '#8B5CF6',
+    bg: '#EDE9FE',
+    route: 'Send-message',
+  },
+];
 
 export function ChooseMessage({ navigation: { navigate } }: any) {
-    const goBack = () => {
-        navigate('Main');
-    };
+  return (
+    <View style={styles.screen}>
+      <SimpleHeader title="Nouveau message" onPress={() => navigate('Contact-us')} />
 
-    const goNext = () => {
-        navigate('Send-message');
-    };
+      <View style={styles.container}>
+        <Text style={styles.heading}>Quel est le sujet{'\n'}de votre message ?</Text>
+        <Text style={styles.subtext}>Choisissez la catégorie qui correspond le mieux à votre demande.</Text>
 
-    return (
-        <View style={styles.screen}>
-            <SimpleHeader title="Nouveau message" onPress={goBack} />
-
-            <View style={styles.container}>
-                <Text style={styles.title}>Quel est le thème de votre message ?</Text>
-
-                <View style={styles.cardsContainer}>
-                    <CardMessage
-                        title={"ACHAT"}
-                        subtitle={"Envoyez un message concernant votre achat"}
-                        color={"#F8F8F8"}
-                        icon={<AntDesign name="caretright" size={24} color="black" />}
-                        onPress={() => navigate('Send-message', { name: 'ACHAT' })}
-                    />
-                    <CardMessage
-                        title={"RECHARGEMENT"}
-                        subtitle={"Envoyez un message sur votre rechargement"}
-                        color={"#F8F8F8"}
-                        icon={<AntDesign name="caretright" size={24} color="black" />}
-                        onPress={() => navigate('Send-message', { name: 'RECHARGEMENT' })}
-                    />
-                    <CardMessage
-                        title={"QUESTION"}
-                        subtitle={"Envoyez un message si vous avez des questions "}
-                        color={"#F8F8F8"}
-                        icon={<AntDesign name="caretright" size={24} color="black" />}
-                        onPress={() => navigate('Send-message', { name: 'QUESTION' })}
-                    />
-                </View>
-            </View>
+        <View style={styles.cards}>
+          {MESSAGE_TYPES.map((type) => (
+            <TouchableOpacity
+              key={type.key}
+              style={styles.card}
+              onPress={() => navigate(type.route, { name: type.key })}
+              activeOpacity={0.8}
+            >
+              <View style={[styles.cardIcon, { backgroundColor: type.bg }]}>
+                <Ionicons name={type.icon} size={26} color={type.color} />
+              </View>
+              <View style={styles.cardContent}>
+                <Text style={styles.cardTitle}>{type.label}</Text>
+                <Text style={styles.cardDesc} numberOfLines={2}>{type.description}</Text>
+              </View>
+              <View style={styles.cardArrow}>
+                <Ionicons name="chevron-forward" size={18} color={Colors.textMuted} />
+              </View>
+            </TouchableOpacity>
+          ))}
         </View>
-    );
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    container: {
-        flex: 1,
-        paddingHorizontal: 15,
-        gap: 16,
-        paddingTop: 15,
-    },
-    title: {
-        fontSize: 16,
-        fontWeight: '300',
-        color: 'black',
-    },
-    cardsContainer: {
-        gap: 16,
-        marginTop: 20,
-    },
+  screen: { flex: 1, backgroundColor: Colors.background },
+  container: { flex: 1, padding: 24 },
+  heading: {
+    fontSize: 26,
+    fontWeight: '800',
+    color: Colors.textPrimary,
+    letterSpacing: -0.5,
+    lineHeight: 34,
+    marginBottom: 10,
+  },
+  subtext: {
+    fontSize: 14,
+    color: Colors.textSecondary,
+    lineHeight: 21,
+    marginBottom: 28,
+  },
+  cards: { gap: 12 },
+  card: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.surface,
+    borderRadius: 20,
+    padding: 18,
+    gap: 16,
+    shadowColor: Colors.shadow,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.7,
+    shadowRadius: 8,
+    elevation: 3,
+  },
+  cardIcon: {
+    width: 52, height: 52, borderRadius: 16,
+    alignItems: 'center', justifyContent: 'center',
+  },
+  cardContent: { flex: 1 },
+  cardTitle: { fontSize: 15, fontWeight: '700', color: Colors.textPrimary, marginBottom: 4 },
+  cardDesc: { fontSize: 12, color: Colors.textSecondary, lineHeight: 18 },
+  cardArrow: {
+    width: 32, height: 32, borderRadius: 8,
+    backgroundColor: Colors.background, alignItems: 'center', justifyContent: 'center',
+  },
 });

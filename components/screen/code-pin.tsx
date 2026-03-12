@@ -1,125 +1,161 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
-import { CodeField, useClearByFocusCell } from 'react-native-confirmation-code-field';
-import {user} from "@/components/objects/all-data_db";
-import {showMessage} from "react-native-flash-message";
-
+import { View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Colors } from '@/constants/Colors';
+import { user } from '@/components/objects/all-data_db';
+import { showMessage } from 'react-native-flash-message';
 
 const CELL_COUNT = 4;
 
 export default function PinCodeScreen({ navigation: { navigate } }: any) {
+  const userInfo = user;
+  const [value, setValue] = useState('');
+  const [shake, setShake] = useState(false);
 
-    const userInfo=user
-    const [value, setValue] = useState('');
-    const [props, getCellOnLayoutHandler] = useClearByFocusCell({ value, setValue });
+  const handleKeyPress = (key: string) => {
+    if (key === 'DEL') {
+      setValue(prev => prev.slice(0, -1));
+    } else if (value.length < CELL_COUNT) {
+      setValue(prev => prev + key);
+    }
+  };
 
-    const handleKeyPress = (key: string) => {
-        if (key === 'DEL') {
-            setValue(prev => prev.slice(0, -1));
-        } else if (value.length < CELL_COUNT) {
-            const newValue = value + key;
-            setValue(newValue);
-        }
-    };
+  useEffect(() => {
+    if (value.length === CELL_COUNT) {
+      if (value === userInfo?.pinCode) {
+        showMessage({ message: 'Bienvenue !', description: 'Code PIN correct.', type: 'success' });
+        navigate('Main');
+      } else {
+        showMessage({ message: 'Code incorrect', description: 'Veuillez réessayer.', type: 'danger' });
+        setValue('');
+      }
+    }
+  }, [value]);
 
-    useEffect(() => {
-        if (value.length === CELL_COUNT) {
-            if (value === userInfo?.pinCode) {
-                showMessage({
-                message: "Succès",
-                description: "Code PIN correct.",
-                type: "success",
-                });
-                navigate("Main")
-            } else {
-            showMessage({
-            message: "Échec",
-            description: "Code PIN incorrect.",
-            type: "danger",
-            });
-                setValue('');
-            }
-        }
-    }, [value,userInfo]);
+  const keys = [
+    ['1', '2', '3'],
+    ['4', '5', '6'],
+    ['7', '8', '9'],
+    ['', '0', 'DEL'],
+  ];
 
-    const keys = [
-        ['1', '2', '3'],
-        ['4', '5', '6'],
-        ['7', '8', '9'],
-        ['', '0', 'DEL'],
-    ];
+  return (
+    <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
 
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Bienvenue {userInfo?.firstName} !</Text>
-            <Text style={styles.subtitle}>Entrez un nouveau code secret</Text>
-            <Text style={styles.subtitle}>validation ({userInfo?.pinCode})</Text>
-
-            <CodeField
-                {...props}
-                value={value}
-                onChangeText={() => {}}
-                cellCount={CELL_COUNT}
-                rootStyle={styles.codeFieldRoot}
-                keyboardType="number-pad"
-                renderCell={({ index, symbol, isFocused }) => (
-                    <Text
-                        key={index}
-                        style={[styles.cell, isFocused && styles.focusCell]}
-                        onLayout={getCellOnLayoutHandler(index)}>
-                        {symbol || ''}
-                    </Text>
-                )}
-            />
-
-            <View style={styles.keyboard}>
-                {keys.map((row, rowIndex) => (
-                    <View style={styles.row} key={rowIndex}>
-                        {row.map((key, index) => (
-                            <TouchableOpacity
-                                key={index}
-                                style={[styles.key, key === 'DEL' && styles.delKey]}
-                                onPress={() => handleKeyPress(key)}
-                                disabled={key === ''}>
-                                <Text style={styles.keyText}>{key === 'DEL' ? '⌫' : key}</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-                ))}
-            </View>
+      {/* Avatar & greeting */}
+      <View style={styles.header}>
+        <View style={styles.avatar}>
+          <Ionicons name="person" size={32} color={Colors.primary} />
         </View>
-    );
+        <Text style={styles.greeting}>Bienvenue,</Text>
+        <Text style={styles.name}>{userInfo?.firstName} {userInfo?.lastName}</Text>
+        <Text style={styles.subtitle}>Entrez votre code PIN pour continuer</Text>
+      </View>
+
+      {/* Dots indicator */}
+      <View style={styles.dotsRow}>
+        {Array.from({ length: CELL_COUNT }).map((_, i) => (
+          <View
+            key={i}
+            style={[
+              styles.dot,
+              i < value.length && styles.dotFilled,
+            ]}
+          />
+        ))}
+      </View>
+
+      {/* Keypad */}
+      <View style={styles.keyboard}>
+        {keys.map((row, rowIndex) => (
+          <View style={styles.row} key={rowIndex}>
+            {row.map((key, index) => (
+              key === '' ? (
+                <View key={index} style={styles.keyEmpty} />
+              ) : key === 'DEL' ? (
+                <TouchableOpacity
+                  key={index}
+                  style={styles.keyDelete}
+                  onPress={() => handleKeyPress(key)}
+                  activeOpacity={0.7}
+                >
+                  <Ionicons name="backspace-outline" size={24} color={Colors.textPrimary} />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  key={index}
+                  style={styles.key}
+                  onPress={() => handleKeyPress(key)}
+                  activeOpacity={0.7}
+                >
+                  <Text style={styles.keyText}>{key}</Text>
+                </TouchableOpacity>
+              )
+            ))}
+          </View>
+        ))}
+      </View>
+
+      <TouchableOpacity style={styles.forgotPin} activeOpacity={0.7}>
+        <Text style={styles.forgotText}>Code PIN oublié ?</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, padding: 20, justifyContent: 'center' },
-    title: { fontSize: 26, fontWeight: 'bold', paddingBottom: 2, textAlign: "center" },
-    subtitle: { fontSize: 14, marginVertical: 10, textAlign: "center" },
-    codeFieldRoot: { marginBottom: 30, justifyContent: 'center' },
-    cell: {
-        width: 40,
-        height: 50,
-        lineHeight: 48,
-        fontSize: 24,
-        borderWidth: 2,
-        borderColor: '#ccc',
-        textAlign: 'center',
-        marginHorizontal: 5,
-        borderRadius: 5,
-    },
-    focusCell: { borderColor: '#000' },
-    keyboard: { alignItems: 'center', justifyContent: 'center' },
-    row: { flexDirection: 'row', marginVertical: 5 },
-    key: {
-        width: 70,
-        height: 70,
-        borderRadius: 35,
-        backgroundColor: 'lightgray',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginHorizontal: 10,
-        alignContent:"space-between"
-    },
-    delKey: { backgroundColor: '#fdd' },
-    keyText: { fontSize: 24, fontWeight: 'bold' },
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background,
+    alignItems: 'center',
+    paddingTop: 80,
+    paddingBottom: 40,
+    paddingHorizontal: 32,
+  },
+  header: { alignItems: 'center', marginBottom: 48 },
+  avatar: {
+    width: 80, height: 80, borderRadius: 40,
+    backgroundColor: Colors.primaryLight,
+    alignItems: 'center', justifyContent: 'center',
+    marginBottom: 16,
+  },
+  greeting: { fontSize: 15, color: Colors.textSecondary, fontWeight: '500' },
+  name: { fontSize: 24, fontWeight: '800', color: Colors.textPrimary, marginTop: 4, letterSpacing: -0.3 },
+  subtitle: { fontSize: 13, color: Colors.textMuted, marginTop: 8 },
+  dotsRow: {
+    flexDirection: 'row', gap: 20, marginBottom: 56,
+  },
+  dot: {
+    width: 16, height: 16, borderRadius: 8,
+    borderWidth: 2, borderColor: Colors.border,
+    backgroundColor: 'transparent',
+  },
+  dotFilled: {
+    backgroundColor: Colors.primary,
+    borderColor: Colors.primary,
+  },
+  keyboard: { width: '100%', alignItems: 'center' },
+  row: { flexDirection: 'row', marginBottom: 14, gap: 14 },
+  key: {
+    width: 76, height: 76, borderRadius: 38,
+    backgroundColor: Colors.surface,
+    alignItems: 'center', justifyContent: 'center',
+    shadowColor: Colors.shadow,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  keyDelete: {
+    width: 76, height: 76, borderRadius: 38,
+    backgroundColor: Colors.errorLight,
+    alignItems: 'center', justifyContent: 'center',
+  },
+  keyEmpty: {
+    width: 76, height: 76,
+  },
+  keyText: { fontSize: 26, fontWeight: '600', color: Colors.textPrimary },
+  forgotPin: { marginTop: 32 },
+  forgotText: { fontSize: 13, color: Colors.primary, fontWeight: '600' },
 });

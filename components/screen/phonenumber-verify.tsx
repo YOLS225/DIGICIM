@@ -55,7 +55,7 @@ export default function PhonenumberVerify({ navigation: { navigate } }: any) {
               buttonText="Valider le code"
               buttonColor={Colors.primary}
               inactive={code.length < 6}
-              onPress={() => navigate('Login')}
+              onPress={() => navigate('PinSetup')}
             />
           </View>
         </View>

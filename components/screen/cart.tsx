@@ -27,7 +27,7 @@ const INITIAL_ITEMS = [
   },
 ];
 
-export default function Cart({ navigation: { navigate } }: any) {
+export default function Cart({ navigation: { navigate, goBack } }: any) {
   const [items, setItems] = useState(INITIAL_ITEMS);
   const [placing, setPlacing] = useState(false);
 
@@ -60,7 +60,7 @@ export default function Cart({ navigation: { navigate } }: any) {
 
   return (
     <View style={styles.screen}>
-      <SimpleHeader title="Mon panier" onPress={() => navigate('Cement')} />
+      <SimpleHeader title="Mon panier" onPress={() => goBack()} />
 
       {items.length === 0 ? (
         <View style={styles.empty}>

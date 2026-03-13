@@ -9,6 +9,7 @@ import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import {PaperProvider} from "react-native-paper";
 import FlashMessage from "react-native-flash-message";
+import { AuthProvider } from '@/context/AuthContext';
 
 
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
@@ -51,15 +52,17 @@ export default function RootLayout() {
 
   return (
       <PaperProvider>
-        <ThemeProvider value={whiteTheme}>
-            <QueryClientProvider client={queryClient}>
-            <Stack>
-              <Stack.Screen name="index" options={{ headerShown: false }} />
-            </Stack>
-            </QueryClientProvider>
-          <FlashMessage position="top" />
-          <StatusBar style="auto" />
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider value={whiteTheme}>
+              <QueryClientProvider client={queryClient}>
+              <Stack>
+                <Stack.Screen name="index" options={{ headerShown: false }} />
+              </Stack>
+              </QueryClientProvider>
+            <FlashMessage position="top" />
+            <StatusBar style="auto" />
+          </ThemeProvider>
+        </AuthProvider>
       </PaperProvider>
   );
 }

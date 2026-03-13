@@ -51,7 +51,7 @@ const ORDERS = [
 
 const FILTERS = ['Toutes', 'En cours', 'Livré', 'Annulé'];
 
-export default function Orders({ navigation: { navigate } }: any) {
+export default function Orders({ navigation: { navigate, goBack } }: any) {
   const [activeFilter, setActiveFilter] = useState('Toutes');
 
   const filtered = activeFilter === 'Toutes'
@@ -60,7 +60,7 @@ export default function Orders({ navigation: { navigate } }: any) {
 
   return (
     <View style={styles.screen}>
-      <SimpleHeader title="Mes commandes" onPress={() => navigate('Main')} />
+      <SimpleHeader title="Mes commandes" onPress={() => goBack()} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Stats bar */}

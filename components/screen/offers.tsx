@@ -63,7 +63,7 @@ const OFFERS = [
 
 const CATEGORIES = ['Toutes', 'Fidélité', 'Saisonnier', 'Volume', 'Nouveau client'];
 
-export default function Offers({ navigation: { navigate } }: any) {
+export default function Offers({ navigation: { goBack } }: any) {
   const [activeCategory, setActiveCategory] = useState('Toutes');
 
   const filtered = activeCategory === 'Toutes'
@@ -72,7 +72,7 @@ export default function Offers({ navigation: { navigate } }: any) {
 
   return (
     <View style={styles.screen}>
-      <SimpleHeader title="Nos offres" onPress={() => navigate('Main')} />
+      <SimpleHeader title="Nos offres" onPress={() => goBack()} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Featured banner */}

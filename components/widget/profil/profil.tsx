@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import {
-  View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch,
+  View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch, Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
-import { user } from '@/components/objects/all-data_db';
+import { useAuth } from '@/context/AuthContext';
 
 interface MenuItem {
   icon: string;
@@ -44,10 +44,33 @@ const MENU_ITEMS: MenuSection[] = [
   },
 ];
 
-export function Profil({ navigation: { navigate } }: any) {
+export function Profil({ navigation }: any) {
+  const { navigate } = navigation;
+  const { user, signOut } = useAuth();
   const userInfo = user;
   const [notifEnabled, setNotifEnabled] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
+
+  const handleLogout = () => {
+    Alert.alert(
+      'Se déconnecter',
+      'Êtes-vous sûr de vouloir vous déconnecter ?',
+      [
+        { text: 'Annuler', style: 'cancel' },
+        {
+          text: 'Déconnecter',
+          style: 'destructive',
+          onPress: async () => {
+            await signOut();
+            navigation.getParent()?.reset({
+              index: 0,
+              routes: [{ name: 'FirstScreen' }],
+            });
+          },
+        },
+      ]
+    );
+  };
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -135,7 +158,7 @@ export function Profil({ navigation: { navigate } }: any) {
 
       {/* Logout */}
       <View style={styles.section}>
-        <TouchableOpacity style={styles.logoutBtn} activeOpacity={0.8}>
+        <TouchableOpacity style={styles.logoutBtn} activeOpacity={0.8} onPress={handleLogout}>
           <Ionicons name="log-out-outline" size={20} color={Colors.error} />
           <Text style={styles.logoutText}>Se déconnecter</Text>
         </TouchableOpacity>

@@ -15,7 +15,7 @@ const SUBJECTS_MAP: Record<string, string[]> = {
   QUESTION: ['Tarification', 'Disponibilité produit', 'Fonctionnement application', 'Autre'],
 };
 
-export function SendMessage({ route, navigation: { navigate } }: any) {
+export function SendMessage({ route, navigation: { navigate, goBack } }: any) {
   const { name } = route.params;
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
@@ -37,7 +37,7 @@ export function SendMessage({ route, navigation: { navigate } }: any) {
     setTimeout(() => {
       setSending(false);
       showMessage({ message: 'Message envoyé', description: 'Notre équipe vous répondra sous 24h.', type: 'success' });
-      navigate('Contact-us');
+      navigate('Main', { screen: 'Contact-us' });
     }, 1500);
   };
 
@@ -45,7 +45,7 @@ export function SendMessage({ route, navigation: { navigate } }: any) {
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.screen}>
-          <SimpleHeader title="Nouveau message" onPress={() => navigate('Choose')} />
+          <SimpleHeader title="Nouveau message" onPress={() => goBack()} />
 
           <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
             {/* Type badge */}

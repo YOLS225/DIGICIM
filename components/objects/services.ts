@@ -5,8 +5,20 @@ import { v4 as uuidv4 } from 'uuid';
 import {OTP, RegisterForm, User} from "@/components/objects/interfaces";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// Simulation BDD
-let users: User[] = [];
+// Simulation BDD — utilisateur démo pré-chargé
+let users: User[] = [
+  {
+    id: '1',
+    firstName: 'digilab',
+    lastName: 'Digilab',
+    email: 'digilab@mydigilab.io',
+    phoneNumber: '0700757873',
+    password: 'digilab',
+    pinCode: '1234',
+    balance: 15000000,
+    createdAt: '2026-01-01T00:00:00.000Z',
+  },
+];
 let otps: OTP[] = [];
 
 // Charge les données au démarrage

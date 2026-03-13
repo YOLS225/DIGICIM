@@ -14,7 +14,7 @@ import { ActivityIndicator } from 'react-native-paper';
 
 const QUICK_AMOUNTS = ['5 000', '10 000', '25 000', '50 000', '100 000'];
 
-export default function Rechargement({ navigation: { navigate } }: any) {
+export default function Rechargement({ navigation: { navigate, goBack } }: any) {
   const [loading, setLoading] = useState(false);
   const [amount, setAmount] = useState('');
   const [dialogVisible, setDialogVisible] = useState(false);
@@ -63,7 +63,7 @@ export default function Rechargement({ navigation: { navigate } }: any) {
           contentContainerStyle={styles.scroll}
           keyboardShouldPersistTaps="handled"
         >
-          <SimpleHeaderWithoutBorder title="Recharger mon compte" onPress={() => navigate('Main')} />
+          <SimpleHeaderWithoutBorder title="Recharger mon compte" onPress={() => goBack()} />
 
           {/* Info card */}
           <View style={styles.infoCard}>

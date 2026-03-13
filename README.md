@@ -1,11 +1,16 @@
 # Big-CIM
 
+<p align="center">
+  <img src="./assets/images/big-cim.png" alt="Big-CIM Logo" width="120" />
+</p>
+
 Application mobile de gestion de compte et de commandes de ciment, developpee avec React Native et Expo.
 
 ---
 
 ## Sommaire
 
+- [Captures d'ecran](#captures-decran)
 - [Apercu](#apercu)
 - [Fonctionnalites](#fonctionnalites)
 - [Stack Technique](#stack-technique)
@@ -17,6 +22,46 @@ Application mobile de gestion de compte et de commandes de ciment, developpee av
 - [Modeles de Donnees](#modeles-de-donnees)
 - [Formulaires et Validation](#formulaires-et-validation)
 - [Gestion d'etat](#gestion-detat)
+
+---
+
+## Captures d'ecran
+
+### Authentification
+
+<p align="center">
+  <img src="./assets/images/first_screen.png" alt="First Screen" width="180" />
+  <img src="./assets/images/login.png" alt="Connexion" width="180" />
+  <img src="./assets/images/register.png" alt="Inscription" width="180" />
+  <img src="./assets/images/pin_code.png" alt="Code PIN" width="180" />
+</p>
+
+### Accueil & Compte
+
+<p align="center">
+  <img src="./assets/images/home.png" alt="Accueil" width="180" />
+  <img src="./assets/images/recharge_amount.png" alt="Rechargement" width="180" />
+  <img src="./assets/images/notification_list.png" alt="Notifications" width="180" />
+  <img src="./assets/images/profil.png" alt="Profil" width="180" />
+</p>
+
+### Commandes
+
+<p align="center">
+  <img src="./assets/images/choose_ciment_factory.png" alt="Choisir la cimenterie" width="180" />
+  <img src="./assets/images/buy_ciment.png" alt="Acheter du ciment" width="180" />
+  <img src="./assets/images/orders.png" alt="Mes commandes" width="180" />
+  <img src="./assets/images/offers.png" alt="Offres" width="180" />
+</p>
+
+### Support & Messagerie
+
+<p align="center">
+  <img src="./assets/images/messages.png" alt="Messages" width="180" />
+  <img src="./assets/images/choose_message_category.png" alt="Categorie message" width="180" />
+  <img src="./assets/images/send_message.png" alt="Envoyer un message" width="180" />
+  <img src="./assets/images/discussion.png" alt="Discussion" width="180" />
+</p>
 
 ---
 
@@ -176,9 +221,9 @@ Composants reutilisables organises par domaine fonctionnel. Concu pour etre comp
 ### Flux d'authentification
 
 ```
-FirstScreen (splash)
-    └── Login
-    └── Register → Verify (OTP) → Pin (code PIN) → Main
+FirstScreen
+├── Login → Pin → Main
+└── Register → Verify (OTP) → PinSetup → Main
 ```
 
 ### Application principale (Bottom Tabs)
@@ -186,12 +231,16 @@ FirstScreen (splash)
 ```
 Main
 ├── Home
-│   └── SoldeTotal (solde + historique)
-│       ├── Rechargement
-│       ├── Choose → ChooseMessage → SendMessage
-│       └── Factories → ChooseFactory → ChooseCement
+│   ├── Rechargement → TransactionHistory
+│   ├── Factories → ChooseCement → Cart → OrderConfirmation
+│   ├── Orders → OrderDetail
+│   └── Offers
 ├── Contact-us
+│   ├── Choose → SendMessage
+│   └── MessageDetail
 └── Profil
+    ├── EditProfile
+    └── Notifications
 ```
 
 ### Detail des ecrans
@@ -202,15 +251,25 @@ Main
 | Login | `login.tsx` | Connexion telephone + mot de passe |
 | Register | `register.tsx` | Inscription avec validation Zod |
 | PhonenumberVerify | `phonenumber-verify.tsx` | Verification OTP 6 chiffres |
+| PinSetup | `pin-setup.tsx` | Creation du code PIN en 2 etapes |
 | PinCodeScreen | `code-pin.tsx` | Saisie PIN 4 chiffres |
 | Home | `home.tsx` | Tableau de bord avec solde |
-| SoldeTotal | `sold-card.tsx` | Detail solde et transactions |
 | Rechargement | `rechargement.tsx` | Recharge du compte |
-| ChooseMessage | `choose-message.tsx` | Selection type de message |
-| SendMessage | `send-message.tsx` | Formulaire de message dynamique |
+| TransactionHistory | `transaction-history.tsx` | Historique des transactions |
 | ChooseFactory | `factories.tsx` | Selection de la cimenterie |
-| ChooseCement | `choose-cement.tsx` | Selection du ciment |
-| ContactUs | `contact-us.tsx` | Informations de contact |
+| ChooseCement | `choose-cement.tsx` | Catalogue produits et panier |
+| Cart | `cart.tsx` | Panier et recapitulatif commande |
+| Orders | `orders.tsx` | Liste de toutes les commandes |
+| OrderDetail | `order-detail.tsx` | Suivi et detail d'une commande |
+| OrderConfirmation | `order-confirmation.tsx` | Confirmation apres commande passee |
+| Offers | `offers.tsx` | Offres et promotions disponibles |
+| Notifications | `notifications.tsx` | Centre de notifications |
+| ContactUs | `contact-us.tsx` | Fils de messages avec le support |
+| ChooseMessage | `choose-message.tsx` | Selection categorie de message |
+| SendMessage | `send-message.tsx` | Formulaire de message dynamique |
+| MessageDetail | `message-detail.tsx` | Chat avec le support |
+| EditProfile | `edit-profile.tsx` | Modification des infos personnelles |
+| Profil | `profil.tsx` | Profil, parametres et deconnexion |
 
 ---
 

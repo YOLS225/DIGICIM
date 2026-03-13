@@ -19,7 +19,7 @@ const PRODUCTS = [
 
 const CATEGORIES = ['Tous', 'Ciment', 'Béton', 'Mortier'];
 
-export default function ChooseCement({ navigation: { navigate } }: any) {
+export default function ChooseCement({ navigation: { navigate, goBack } }: any) {
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState('Tous');
   const [cart, setCart] = useState(0);
@@ -30,7 +30,7 @@ export default function ChooseCement({ navigation: { navigate } }: any) {
 
   return (
     <View style={styles.screen}>
-      <SimpleHeader title="Acheter du ciment" onPress={() => navigate('Factories')} />
+      <SimpleHeader title="Acheter du ciment" onPress={() => goBack()} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Title */}

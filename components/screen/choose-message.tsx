@@ -34,10 +34,10 @@ const MESSAGE_TYPES = [
   },
 ];
 
-export function ChooseMessage({ navigation: { navigate } }: any) {
+export function ChooseMessage({ navigation: { navigate, goBack } }: any) {
   return (
     <View style={styles.screen}>
-      <SimpleHeader title="Nouveau message" onPress={() => navigate('Contact-us')} />
+      <SimpleHeader title="Nouveau message" onPress={() => goBack()} />
 
       <View style={styles.container}>
         <Text style={styles.heading}>Quel est le sujet{'\n'}de votre message ?</Text>

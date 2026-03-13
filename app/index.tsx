@@ -1,5 +1,7 @@
-import { LogBox } from 'react-native';
+import { LogBox, View, ActivityIndicator } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useAuth } from '@/context/AuthContext';
+import { Colors } from '@/constants/Colors';
 
 // Auth
 import FirstScreen from '@/components/screen/first-screen';
@@ -39,8 +41,20 @@ LogBox.ignoreLogs(['Support for defaultProps will be removed']);
 const Stack = createNativeStackNavigator();
 
 export default function Index() {
+  const { user, isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, backgroundColor: Colors.background, alignItems: 'center', justifyContent: 'center' }}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
+  }
+
+  const initialRoute = user ? 'Pin' : 'FirstScreen';
+
   return (
-    <Stack.Navigator initialRouteName="FirstScreen">
+    <Stack.Navigator initialRouteName={initialRoute}>
       {/* ── AUTH ── */}
       <Stack.Screen name="FirstScreen"     component={FirstScreen}       options={{ headerShown: false }} />
       <Stack.Screen name="Login"           component={Login}             options={{ headerShown: false }} />

@@ -28,7 +28,7 @@ const FACTORIES = [
   },
 ];
 
-export function ChooseFactory({ navigation: { navigate } }: any) {
+export function ChooseFactory({ navigation: { navigate, goBack } }: any) {
   const [search, setSearch] = useState('');
 
   const filtered = FACTORIES.filter(f =>
@@ -38,7 +38,7 @@ export function ChooseFactory({ navigation: { navigate } }: any) {
 
   return (
     <View style={styles.screen}>
-      <SimpleHeader title="Choisir un site" onPress={() => navigate('Main')} />
+      <SimpleHeader title="Choisir un site" onPress={() => goBack()} />
 
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <Text style={styles.heading}>Sélectionnez{'\n'}votre cimenterie</Text>

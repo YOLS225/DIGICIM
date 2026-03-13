@@ -11,7 +11,7 @@ import SimpleButton from '@/components/widget/buttons/simple-button';
 import { showMessage } from 'react-native-flash-message';
 import { user } from '@/components/objects/all-data_db';
 
-export default function EditProfile({ navigation: { navigate } }: any) {
+export default function EditProfile({ navigation: { goBack } }: any) {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user.email);
@@ -22,14 +22,14 @@ export default function EditProfile({ navigation: { navigate } }: any) {
     setTimeout(() => {
       setSaving(false);
       showMessage({ message: 'Profil mis à jour', description: 'Vos informations ont été sauvegardées.', type: 'success' });
-      navigate('Profil');
+      goBack();
     }, 1200);
   };
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <View style={styles.screen}>
-        <SimpleHeader title="Modifier le profil" onPress={() => navigate('Profil')} />
+        <SimpleHeader title="Modifier le profil" onPress={() => goBack()} />
 
         <ScrollView style={styles.container} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
           {/* Avatar section */}

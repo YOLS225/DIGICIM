@@ -31,7 +31,7 @@ const TYPE_CONFIG = {
   system: { icon: 'settings', color: '#8B5CF6', bg: '#EDE9FE' },
 };
 
-export default function Notifications({ navigation: { navigate } }: any) {
+export default function Notifications({ navigation: { goBack } }: any) {
   const [notifs, setNotifs] = useState(INITIAL_NOTIFS);
 
   const unreadCount = notifs.filter(n => !n.read).length;
@@ -49,7 +49,7 @@ export default function Notifications({ navigation: { navigate } }: any) {
 
   return (
     <View style={styles.screen}>
-      <SimpleHeader title="Notifications" onPress={() => navigate('Main')} />
+      <SimpleHeader title="Notifications" onPress={() => goBack()} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Header actions */}

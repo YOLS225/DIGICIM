@@ -15,7 +15,7 @@ const STEPS = [
   { label: 'Livrée', done: false, date: '—' },
 ];
 
-export default function OrderDetail({ route, navigation: { navigate } }: any) {
+export default function OrderDetail({ route, navigation: { navigate, goBack } }: any) {
   const order = route?.params?.order ?? {
     id: 'CMD-2026-0045',
     product: 'CPJ 42,5 (N) - 5T',
@@ -33,7 +33,7 @@ export default function OrderDetail({ route, navigation: { navigate } }: any) {
 
   return (
     <View style={styles.screen}>
-      <SimpleHeader title="Détail commande" onPress={() => navigate('Orders')} />
+      <SimpleHeader title="Détail commande" onPress={() => goBack()} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Status card */}

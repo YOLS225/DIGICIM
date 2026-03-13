@@ -21,7 +21,7 @@ const MOCK_MESSAGES: Message[] = [
   { id: 4, from: 'agent', content: 'Merci. Nous vérifions votre dossier. Nous vous reviendrons dans les 30 prochaines minutes.', time: 'Hier, 14:35' },
 ];
 
-export default function MessageDetail({ route, navigation: { navigate } }: any) {
+export default function MessageDetail({ route, navigation: { goBack } }: any) {
   const thread = route?.params?.thread ?? {
     id: 2,
     type: 'RECHARGEMENT',
@@ -56,7 +56,7 @@ export default function MessageDetail({ route, navigation: { navigate } }: any) 
       <View style={styles.screen}>
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity style={styles.backBtn} onPress={() => navigate('Contact-us')} activeOpacity={0.7}>
+          <TouchableOpacity style={styles.backBtn} onPress={() => goBack()} activeOpacity={0.7}>
             <Ionicons name="arrow-back" size={22} color={Colors.textPrimary} />
           </TouchableOpacity>
           <View style={styles.headerInfo}>

@@ -3,12 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-nativ
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { showMessage } from 'react-native-flash-message';
+import { useAuth } from '@/context/AuthContext';
 
 const CELL_COUNT = 4;
 
 type Step = 'create' | 'confirm';
 
 export default function PinSetup({ navigation: { navigate } }: any) {
+  const { updateUser } = useAuth();
   const [step, setStep] = useState<Step>('create');
   const [firstPin, setFirstPin] = useState('');
   const [value, setValue] = useState('');
@@ -30,6 +32,7 @@ export default function PinSetup({ navigation: { navigate } }: any) {
       setStep('confirm');
     } else {
       if (value === firstPin) {
+        updateUser({ pinCode: value });
         showMessage({ message: 'Code PIN créé !', description: 'Votre code PIN a été défini avec succès.', type: 'success' });
         navigate('Main');
       } else {

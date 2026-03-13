@@ -19,7 +19,7 @@ const ALL_TRANSACTIONS = [
 
 const FILTERS = ['Tous', 'Entrées', 'Sorties', 'Échoués'];
 
-export default function TransactionHistory({ navigation: { navigate } }: any) {
+export default function TransactionHistory({ navigation: { goBack } }: any) {
   const [search, setSearch] = useState('');
   const [activeFilter, setActiveFilter] = useState('Tous');
 
@@ -39,7 +39,7 @@ export default function TransactionHistory({ navigation: { navigate } }: any) {
 
   return (
     <View style={styles.screen}>
-      <SimpleHeader title="Historique" onPress={() => navigate('Main')} />
+      <SimpleHeader title="Historique" onPress={() => goBack()} />
 
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Stats */}

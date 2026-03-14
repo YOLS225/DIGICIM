@@ -14,7 +14,7 @@ export default function FirstScreen({ navigation: { navigate } }: any) {
       {/* Hero image with overlay */}
       <View style={styles.heroSection}>
         <Image
-          source={{ uri: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop' }}
+          source={require('@/assets/images/factory.avif')}
           style={styles.heroImage}
           resizeMode="cover"
         />
